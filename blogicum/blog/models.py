@@ -1,29 +1,7 @@
-from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.db import models
 
 User = get_user_model()
-
-
-class Location(models.Model):
-    name = models.CharField(max_length=256, verbose_name='Название места')
-
-    is_published = models.BooleanField(
-        default=True,
-        verbose_name='Опубликовано',
-        help_text='Снимите галочку, чтобы скрыть публикацию.',
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name='Добавлено'
-    )
-
-    class Meta:
-        verbose_name = 'местоположение'
-        verbose_name_plural = 'Местоположения'
-
-    def __str__(self):
-        return self.name
 
 
 class Category(models.Model):
@@ -52,6 +30,25 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Location(models.Model):
+    name = models.CharField(max_length=256, verbose_name="Название места")
+    is_published = models.BooleanField(
+        default=True,
+        verbose_name="Опубликовано",
+        help_text="Снимите галочку, чтобы скрыть публикацию.",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Добавлено"
+    )
+
+    class Meta:
+        verbose_name = "местоположение"
+        verbose_name_plural = "Местоположения"
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -103,14 +100,14 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    text = models.TextField('Текст комментария')
+    text = models.TextField("Текст комментария")
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name='comments',
+        related_name="comments",
     )
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ('created_at',)
+        ordering = ("created_at",)
