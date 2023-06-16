@@ -111,8 +111,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = "blog/create.html"
 
     def get_success_url(self):
-        slug = self.request.user.username
-        return reverse("blog:profile", kwargs={"username_slug": slug})
+        self.slug = self.request.user.username
+        return reverse("blog:profile",
+                       kwargs={"username_slug": self.request.user})
 
     def form_valid(self, form):
         form.instance.author = self.request.user
