@@ -20,7 +20,7 @@ urlpatterns = [
         name="edit_post",
     ),
     path(
-        "edit/<int:pk>/",
+        "profile/edit/<int:pk>/",
         views.UserUpdateView.as_view(),
         name="edit_profile",
     ),
