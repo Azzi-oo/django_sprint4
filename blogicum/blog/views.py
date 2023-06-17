@@ -141,9 +141,12 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
-    template_name = "blog/user.html"
     form_class = UserForm
+    template_name = "blog/user.html"
     success_url = reverse_lazy("blog:index")
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
